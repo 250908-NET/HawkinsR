@@ -11,6 +11,12 @@ app.MapPost("/echo", (Request message) => Results.Ok(message));
 
 app.MapGet("/products", (IProductRepository repo) => Results.Ok(repo.Products));
 
+app.MapGet("/products/{id}", (int id, IProductRepository repo) =>
+{
+  var product = repo.Products.FirstOrDefault(p => p.Id == id);
+  return product is not null ? Results.Ok(product) : Results.NotFound();
+});
+
 app.MapPost("/products", (Product product, IProductRepository repo) =>
 {
   repo.Products.Add(product);
