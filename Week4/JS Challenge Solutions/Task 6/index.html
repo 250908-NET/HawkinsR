@@ -14,7 +14,11 @@
         <script>
             function greetUser() {
                 const name = document.getElementById("nameInput").value;
-                alert(`Hello, ${name}!`);
+                if (name) {
+                    alert("Hello, " + name + "!");
+                } else {
+                    alert("Please enter your name.");
+                }
             }
         </script>
     </body>
