@@ -1,27 +1,55 @@
+-- SETUP:
+-- Create a database server (docker)
+-- docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<password>" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+-- Connect to the server (Azure Data Studio / Database extension)
+-- Test your connection with a simple query (like a select)
+-- Execute the Chinook database (to create Chinook resources in your db)
+
+USE [Chinook];
+Go
+
 -- On the Chinook DB, practice writing queries with the following exercises
 
 -- BASIC CHALLENGES
 -- List all customers (full name, customer id, and country) who are not in the USA
-    SELECT FirstName + ' ' + LastName AS 'Full Name', customerid, country
-    FROM Customer
-    WHERE country != 'USA';
+
+SELECT
+    FirstName,
+    LastName,
+    CustomerId,
+    Country
+FROM [Customer]
+WHERE
+    [Chinook].[dbo].[Customer].[Country] != 'USA';
+
 -- List all customers from Brazil
-    
+
+SELECT * 
+FROM [Customer]
+WHERE Country = 'Brazil';
+
 -- List all sales agents
+SELECT *
+FROM [Employee]
+WHERE
+    Title = 'Sales Support Agent';
 
 -- Retrieve a list of all countries in billing addresses on invoices
 
+SELECT DISTINCT BillingCountry 
+FROM [Invoice];
+
 -- Retrieve how many invoices there were in 2009, and what was the sales total for that year?
 
-    -- (challenge: find the invoice count sales total for every year using one query)
-
+SELECT COUNT(InvoiceId) 
+FROM [Invoice];
+-- (challenge: find the invoice count sales total for every year using one query)
 
 -- how many line items were there for invoice #37
 
 -- how many invoices per country? BillingCountry  # of invoices -
 
 -- Retrieve the total sales per country, ordered by the highest total sales first.
-
 
 -- JOINS CHALLENGES
 -- Every Album by Artist
@@ -31,10 +59,6 @@
 -- Show all invoices of customers from brazil (mailing address not billing)
 
 -- Show all invoices together with the name of the sales agent for each one
-Select i.InvoiceId, i.InvoiceDate, c.CustomerId, c.FirstName + ' ' + c.LastName 'Customer', e.FirstName + ' ' + e.LastName 'Sales Agent'
-From Invoice i
-JOIN Customer c ON i.CustomerId = c.CustomerId
-JOIN Employee e ON c.SupportRepId = e.EmployeeId
 
 -- Which sales agent made the most sales in 2009?
 
@@ -45,8 +69,6 @@ JOIN Employee e ON c.SupportRepId = e.EmployeeId
 -- Show the top three best selling artists.
 
 -- Which customers have the same initials as at least one other customer?
-
-
 
 -- ADVACED CHALLENGES
 -- solve these with a mixture of joins, subqueries, CTE, and set operators.
@@ -67,7 +89,6 @@ JOIN Employee e ON c.SupportRepId = e.EmployeeId
 
 -- 6. list the names and countries of the customers supported by an employee
 --    who was hired younger than 35.
-
 
 -- DML exercises
 
