@@ -10,5 +10,20 @@ function swapBackground() {
     }
 }
 
+function addTask(){
+    let task = taskInput.value;
+    if(task){
+        let li = document.createElement("li");
+        li.textContent = task;
+        taskList.appendChild(li);
+        taskInput.value = "";
+    }
+}
+
 let btn = document.getElementById("btn");
 btn.addEventListener("click", swapBackground);
+
+let addTaskBtn = document.getElementById("addTaskBtn");
+let taskInput = document.getElementById("taskInput");
+let taskList = document.getElementById("taskList");
+addTaskBtn.addEventListener("click", addTask);
