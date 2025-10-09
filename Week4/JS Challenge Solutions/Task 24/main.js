@@ -1,4 +1,4 @@
-document.getElementById("btn").addEventListener("click", () =>{
+function callAndDisplay() {
     fetch("https://jsonplaceholder.typicode.com/posts")
         .then((response) => response.json())
         .then((data) => {
@@ -10,4 +10,8 @@ document.getElementById("btn").addEventListener("click", () =>{
             output.innerHTML = "<p>Error fetching data. Please try again later.</p>";
         });
 
-});
+}
+
+let output = document.getElementById("output");
+let btn = document.getElementById("btn");
+btn.addEventListener("click", callAndDisplay);
